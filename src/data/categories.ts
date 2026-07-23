@@ -2,114 +2,103 @@ import { Category } from '../types';
 
 export const CATEGORIES: Category[] = [
   {
-    id: 'pashudhan_fodder',
-    name: 'Livestock & Fodder',
-    nameHi: 'पशुधन व पशु चारा (गाय/भैंस/भूसा)',
-    iconName: 'Sparkles',
-    bannerColor: 'bg-amber-600',
+    id: 'cattle',
+    name: 'Cattle & Livestock',
+    nameHi: 'पशुधन (गाय, भैंस, बकरी)',
+    icon: 'Cow',
     subcategories: [
-      { id: 'pashu_cow', name: 'Cows (गाय - साहीवाल/एचएफ/गिर)', nameHi: 'गाय (साहीवाल/एचएफ/गिर)' },
-      { id: 'pashu_buffalo', name: 'Buffaloes (भैंस - मुर्रा/जाफराबादी)', nameHi: 'भैंस (मुर्रा/जाफराबादी)' },
-      { id: 'pashu_goat_bull', name: 'Goats, Sheep & Bulls (बकरी/भेड़/बैल)', nameHi: 'बकरी, भेड़, बैल व पोल्ट्री' },
-      { id: 'chara_bhusa', name: 'Fodder & Straw (सूखा भूसा/पुआल/हरा चारा)', nameHi: 'गेहूं का भूसा, पुआल व हरा चारा' },
-      { id: 'pashu_aahaar', name: 'Cattle Feed & Khali (पशु आहार/खली)', nameHi: 'पशु आहार, खली व चोकर' },
+      { id: 'cow', name: 'Cows (गाय)', nameHi: 'गाय' },
+      { id: 'buffalo', name: 'Buffaloes (भैंस)', nameHi: 'भैंस' },
+      { id: 'goat', name: 'Goats (बकरी)', nameHi: 'बकरी' },
+      { id: 'sheep', name: 'Sheep (भेड़)', nameHi: 'भेड़' },
+      { id: 'bull', name: 'Bulls & Oxen (बैल/सांड)', nameHi: 'बैल/सांड' },
+      { id: 'poultry', name: 'Poultry & Birds (मुर्गी/पक्षी)', nameHi: 'मुर्गी/पक्षी' }
     ]
   },
   {
-    id: 'anaaj_crops',
-    name: 'Grains & Crop Harvest',
-    nameHi: 'किसान अनाज व फसल (गेहूं/धान/सरसों)',
-    iconName: 'Tractor',
-    bannerColor: 'bg-emerald-600',
+    id: 'tractors',
+    name: 'Tractors & Machinery',
+    nameHi: 'ट्रैक्टर एवं कृषि मशीनें',
+    icon: 'Tractor',
     subcategories: [
-      { id: 'wheat_gehun', name: 'Wheat Grains (गेहूं फसल)', nameHi: 'गेहूं अनाज (शरबाती/देशी)' },
-      { id: 'paddy_rice', name: 'Paddy & Rice (धान व चावल)', nameHi: 'धान व बासमती चावल' },
-      { id: 'mustard_pulses', name: 'Mustard & Pulses (सरसों व दालें)', nameHi: 'सरसों, चना, अरहर व दालें' },
-      { id: 'seeds_fertilizers', name: 'Certified Seeds & Bio-Fertilizer (बीज व खाद)', nameHi: 'प्रमाणित बीज व जैविक खाद' },
+      { id: 'tractor', name: 'Tractors (ट्रैक्टर)', nameHi: 'ट्रैक्टर' },
+      { id: 'harvester', name: 'Harvesters & Combines (हार्वेस्टर)', nameHi: 'हार्वेस्टर' },
+      { id: 'rotavator', name: 'Rotavators & Tillers (रोटावेटर)', nameHi: 'रोटावेटर' },
+      { id: 'trolley', name: 'Tractor Trolley & Trailers (ट्रॉली)', nameHi: 'ट्रॉली' },
+      { id: 'thresher', name: 'Threshers (थ्रेशर)', nameHi: 'थ्रेशर' },
+      { id: 'seeder', name: 'Seeders & Drills (सीडर/बुआई मशीन)', nameHi: 'सीडर' }
     ]
   },
   {
-    id: 'sabji_fruits',
-    name: 'Fresh Produce & Veggies',
-    nameHi: 'ताजा सब्जियां व फल (आलू/टमाटर/प्याज)',
-    iconName: 'Shirt',
-    bannerColor: 'bg-rose-600',
+    id: 'implements',
+    name: 'Farming Implements & Tools',
+    nameHi: 'कृषि औजार एवं उपकरण',
+    icon: 'Wrench',
     subcategories: [
-      { id: 'potato_onion', name: 'Potato, Onion & Garlic (आलू/प्याज/लहसुन)', nameHi: 'आलू, प्याज व लहसुन थोक' },
-      { id: 'tomato_green', name: 'Tomato & Green Veggies (टमाटर व हरी सब्जियां)', nameHi: 'टमाटर व हरी सब्जियां' },
-      { id: 'farm_fruits', name: 'Fresh Farm Fruits (ताजा फल व बागवानी)', nameHi: 'ताजा फल (आम/केला/अमरूद)' },
+      { id: 'plough', name: 'Ploughs & Cultivators (हल/कल्टीवेटर)', nameHi: 'हल/कल्टीवेटर' },
+      { id: 'sprayer', name: 'Pesticide Sprayers (स्प्रेयर मशीन)', nameHi: 'स्प्रेयर मशीन' },
+      { id: 'water-pump', name: 'Water Pumps & Motors (वाटर पंप/मोटर)', nameHi: 'वाटर पंप/मोटर' },
+      { id: 'pipe-irrigation', name: 'Irrigation Pipes & Drip (सिंचाई पाइप)', nameHi: 'सिंचाई पाइप' },
+      { id: 'chaff-cutter', name: 'Chaff Cutters (कुट्टी काटने की मशीन)', nameHi: 'कुट्टी काटने की मशीन' }
     ]
   },
   {
-    id: 'krishi_machinery',
-    name: 'Tractor & Farm Tools',
-    nameHi: 'ट्रैक्टर व कृषि उपकरण',
-    iconName: 'Tractor',
-    bannerColor: 'bg-sky-600',
+    id: 'produce',
+    name: 'Crops & Agri Produce',
+    nameHi: 'फसल, अनाज एवं उपज',
+    icon: 'Wheat',
     subcategories: [
-      { id: 'tractors', name: 'Tractors (महिंद्रा/स्वराज/जॉन डियर)', nameHi: 'ट्रैक्टर (महिंद्रा/स्वराज/मैसी)' },
-      { id: 'implements', name: 'Harvester, Cultivator & Thresher (थ्रेशर)', nameHi: 'थ्रेशर, कल्टीवेटर व रोटावेटर' },
-      { id: 'agri_land', name: 'Agricultural Land & Farmhouses (खेती जमीन)', nameHi: 'खेती की जमीन व फार्महाउस' },
+      { id: 'wheat-rice', name: 'Grains (गेहूं, धान, मक्का)', nameHi: 'गेहूं, धान, मक्का' },
+      { id: 'pulses', name: 'Pulses & Dal (दालें/दलहन)', nameHi: 'दालें/दलहन' },
+      { id: 'oilseeds', name: 'Oilseeds (सरसों, मूंगफली)', nameHi: 'सरसों, मूंगफली' },
+      { id: 'sugarcane', name: 'Sugarcane & Jaggery (गन्ना/गुड़)', nameHi: 'गन्ना/गुड़' },
+      { id: 'fodder', name: 'Animal Fodder & Straw (भूसा/चारा)', nameHi: 'भूसा/चारा' },
+      { id: 'fruits-veg', name: 'Fruits & Vegetables (फल-सब्जियां)', nameHi: 'फल-सब्जियां' }
     ]
   },
   {
-    id: 'vehicles',
-    name: 'Vehicles & Electric EVs',
-    nameHi: 'गाड़ियां व इलेक्ट्रिक वाहन',
-    iconName: 'Car',
-    bannerColor: 'bg-blue-600',
+    id: 'seeds-fertilizers',
+    name: 'Seeds, Fertilizers & Pesticides',
+    nameHi: 'बीज, खाद एवं कीटनाशक',
+    icon: 'Sprout',
     subcategories: [
-      { id: 'electric_ev', name: 'Electric Vehicles (EV Cars & Scooters)', nameHi: 'इलेक्ट्रिक गाड़ियां (EV)' },
-      { id: 'cars', name: 'Cars & SUVs (फोर-व्हीलर)', nameHi: 'कार व फोर-व्हीलर' },
-      { id: 'bikes', name: 'Bikes & Scooters (बाइक/स्कूटी)', nameHi: 'बाइक व स्कूटी' },
-      { id: 'commercial', name: 'Commercial & Pickup Trucks (पिकअप)', nameHi: 'कमर्शियल व पिकअप' },
-      { id: 'auto_parts', name: 'Spare Parts & Accessories (स्पेयर पार्ट्स)', nameHi: 'स्पेयर पार्ट्स व टायर' },
+      { id: 'seeds', name: 'Certified Seeds (प्रमाणित बीज)', nameHi: 'प्रमाणित बीज' },
+      { id: 'organic-fertilizer', name: 'Organic Fertilizers & Compost (जैविक खाद)', nameHi: 'जैविक खाद' },
+      { id: 'vermicompost', name: 'Vermicompost (वर्मीकंपोस्ट)', nameHi: 'वर्मीकंपोस्ट' },
+      { id: 'pesticides', name: 'Bio-Pesticides & Tonics (जैविक कीटनाशक)', nameHi: 'जैविक कीटनाशक' }
     ]
   },
   {
-    id: 'electronics',
-    name: 'Mobiles & Electronics',
-    nameHi: 'मोबाइल व इलेक्ट्रॉनिक्स',
-    iconName: 'Smartphone',
-    bannerColor: 'bg-indigo-600',
+    id: 'solar-energy',
+    name: 'Solar & Farm Infrastructure',
+    nameHi: 'सोलर पंप एवं फार्म ढांचा',
+    icon: 'Sun',
     subcategories: [
-      { id: 'smartphones', name: 'Smartphones & iPhones (स्मार्टफोन)', nameHi: 'स्मार्टफोन व आईफोन' },
-      { id: 'laptops', name: 'Laptops & Computers (लैपटॉप/कंप्यूटर)', nameHi: 'लैपटॉप व कंप्यूटर' },
-      { id: 'tv_audio', name: 'Smart TV & Refrigerators (टीवी/फ्रिज)', nameHi: 'स्मार्ट टीवी व फ्रिज' },
-      { id: 'ac_coolers', name: 'Air Conditioners & Coolers (एसी/कूलर)', nameHi: 'एसी व एयर कूलर' },
+      { id: 'solar-pump', name: 'Solar Water Pumps (सोलर वाटर पंप)', nameHi: 'सोलर वाटर पंप' },
+      { id: 'solar-panels', name: 'Solar Panels & Inverters (सोलर पैनल)', nameHi: 'सोलर पैनल' },
+      { id: 'fencing', name: 'Solar Fencing & Wires (झटका मशीन/तार)', nameHi: 'झटका मशीन/तार' },
+      { id: 'greenhouse', name: 'Greenhouse & Polyhouse Nets (पॉलीहाउस नेट)', nameHi: 'पॉलीहाउस नेट' }
     ]
   },
   {
-    id: 'property',
-    name: 'Property & Real Estate',
-    nameHi: 'प्रॉपर्टी, जमीन व मकान',
-    iconName: 'Building2',
-    bannerColor: 'bg-amber-600',
+    id: 'land-rental',
+    name: 'Agri Land & Equipment Rental',
+    nameHi: 'कृषि जमीन एवं उपकरण किराए पर',
+    icon: 'Landmark',
     subcategories: [
-      { id: 'residential_house', name: 'House & Flats for Sale (मकान/फ्लैट)', nameHi: 'मकान व फ्लैट बिकऊ' },
-      { id: 'plots_land', name: 'Plots & Land (प्लॉट/जमीन)', nameHi: 'प्लॉट व जमीन' },
-      { id: 'rentals', name: 'House & Rooms for Rent (किराए का मकान)', nameHi: 'किराए के मकान व दुकान' },
-    ]
-  },
-  {
-    id: 'jobs_services',
-    name: 'Jobs & Local Services',
-    nameHi: 'रोजगार व स्थानीय सेवाएं',
-    iconName: 'Briefcase',
-    bannerColor: 'bg-teal-600',
-    subcategories: [
-      { id: 'farm_workers', name: 'Agriculture & Farm Workers (खेती मजदूर)', nameHi: 'खेती-किसानी मजदूर' },
-      { id: 'driver_mechanic', name: 'Drivers & Technicians (ड्राइवर/मैकेनिक)', nameHi: 'ड्राइवर व मैकेनिक' },
-      { id: 'home_repair', name: 'Electrician & Plumber Services (इलेक्ट्रीशियन)', nameHi: 'इलेक्ट्रीशियन व प्लंबर' },
+      { id: 'land-sale', name: 'Agricultural Land for Sale (कृषि भूमि बिक्री)', nameHi: 'कृषि भूमि बिक्री' },
+      { id: 'land-lease', name: 'Land for Lease/Batai (बटाई/लीज़ पर जमीन)', nameHi: 'बटाई/लीज़ पर जमीन' },
+      { id: 'tractor-rent', name: 'Tractor/Harvester Rental (किराए पर ट्रैक्टर)', nameHi: 'किराए पर ट्रैक्टर' }
     ]
   }
 ];
 
-export const STATES_DISTRICTS = [
-  { state: 'Uttar Pradesh', cities: ['Lucknow', 'Kanpur', 'Varanasi', 'Agra', 'Prayagraj', 'Gorakhpur', 'Meerut', 'Ayodhya', 'Bareilly'] },
-  { state: 'Bihar', cities: ['Patna', 'Gaya', 'Muzaffarpur', 'Bhagalpur', 'Purnia', 'Darbhanga', 'Arrah'] },
-  { state: 'Madhya Pradesh', cities: ['Bhopal', 'Indore', 'Gwalior', 'Jabalpur', 'Ujjain', 'Sagar'] },
-  { state: 'Rajasthan', cities: ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota', 'Bikaner', 'Ajmer'] },
-  { state: 'Delhi NCR', cities: ['New Delhi', 'Noida', 'Gurugram', 'Ghaziabad', 'Faridabad'] },
-  { state: 'Punjab & Haryana', cities: ['Ludhiana', 'Amritsar', 'Chandigarh', 'Karnal', 'Hisar', 'Patiala'] },
-];
+export const STATES_AND_DISTRICTS: Record<string, string[]> = {
+  'Uttar Pradesh': ['Lucknow', 'Kanpur', 'Varanasi', 'Agra', 'Gorakhpur', 'Prayagraj', 'Bareilly', 'Meerut', 'Ayodhya'],
+  'Madhya Pradesh': ['Indore', 'Bhopal', 'Ujjain', 'Gwalior', 'Jabalpur', 'Sagar', 'Satna', 'Rewa'],
+  'Rajasthan': ['Jaipur', 'Jodhpur', 'Kota', 'Udaipur', 'Bikaner', 'Ajmer', 'Alwar', 'Sriganganagar'],
+  'Punjab': ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Bathinda', 'Sangrur'],
+  'Haryana': ['Karnal', 'Hisar', 'Rohtak', 'Ambala', 'Kurukshetra', 'Sirsa'],
+  'Bihar': ['Patna', 'Gaya', 'Muzaffarpur', 'Bhagalpur', 'Darbhanga', 'Rohtas'],
+  'Maharashtra': ['Pune', 'Nashik', 'Nagpur', 'Aurangabad', 'Solapur', 'Kolhapur']
+};
