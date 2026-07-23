@@ -1,154 +1,75 @@
-  );
-};
 import React from 'react';
 import { Listing } from '../types';
-import { MapPin, Calendar, CheckCircle2, Phone, Heart, Sparkles, MessageCircle } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { MapPin, Calendar, CheckCircle2, ChevronRight, Eye } from 'lucide-react';
 
 interface ListingCardProps {
   listing: Listing;
+  onSelect: (listing: Listing) => void;
 }
 
-export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
-  const { 
-    setSelectedListing, 
-    savedListings, 
-    toggleSaveListing, 
-    openChatModal, 
-    openAIValuationModal 
-  } = useApp();
-
-  const isSaved = savedListings.includes(listing.id);
-
-  const formatPrice = (price: number) => {
-    if (price >= 100000) {
-      return `₹ ${(price / 100000).toFixed(2)} लाख`;
-    }
-    return `₹ ${price.toLocaleString('en-IN')}`;
-  };
-
+export const ListingCard: React.FC<ListingCardProps> = ({ listing, onSelect }) => {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden group">
-      
-      {/* Image & Badges */}
-      <div 
-        className="relative aspect-4/3 overflow-hidden bg-gray-100 cursor-pointer"
-        onClick={() => setSelectedListing(listing)}
-      >
+    <div 
+      onClick={() => onSelect(listing)}
+      className="bg-white rounded-2xl border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300 overflow-hidden cursor-pointer group flex flex-col h-full"
+    >
+      <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <img 
-          src={listing.images[0]} 
-          alt={listing.title} 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          src={listing.images?.[0] || 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=800'} 
+          alt={listing.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
         />
-
-        {/* Saved/Favorite button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleSaveListing(listing.id);
-          }}
-          className="absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-md text-gray-700 hover:text-red-500 shadow-sm transition-colors"
-        >
-          <Heart className={`w-4 h-4 ${isSaved ? 'fill-red-500 text-red-500' : ''}`} />
-        </button>
-
-        {/* Verified Seller Badge */}
-        {listing.seller.verified && (
-          <div className="absolute top-3 left-3 bg-emerald-800/90 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-md flex items-center space-x-1 shadow-sm">
-            <CheckCircle2 className="w-3 h-3 text-amber-400" />
-            <span>सत्यापित (Verified)</span>
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+          <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-slate-800 rounded-full shadow-sm border border-white/50">
+            {listing.category}
+          </span>
+          {listing.isVerified && (
+            <span className="px-2.5 py-1 bg-emerald-500/90 backdrop-blur-md text-xs font-medium text-white rounded-full shadow-sm flex items-center gap-1">
+              <CheckCircle2 className="w-3 h-3" /> Verified
+            </span>
+          )}
+        </div>
+        
+        {listing.urgency && listing.urgency !== 'Low' && (
+          <div className="absolute top-3 right-3">
+            <span className={`px-2.5 py-1 text-xs font-semibold rounded-full shadow-sm ${
+              listing.urgency === 'High' 
+                ? 'bg-rose-500 text-white' 
+                : 'bg-amber-500 text-white'
+            }`}>
+              {listing.urgency} Priority
+            </span>
           </div>
         )}
 
-        {/* Category Tag */}
-        <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] px-2.5 py-0.5 rounded-full">
-          {listing.subcategory.toUpperCase()}
+        <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
+          <span className="px-3 py-1.5 bg-slate-900/80 backdrop-blur-md text-white text-sm font-bold rounded-xl shadow-lg border border-white/10">
+            ₹{listing.price.toLocaleString('en-IN')} {listing.unit ? `/${listing.unit}` : ''}
+          </span>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-4 flex-1 flex flex-col justify-between">
+      <div className="p-4 flex flex-col flex-grow justify-between">
         <div>
-          {/* Price & Location */}
-          <div className="flex items-baseline justify-between mb-1">
-            <span className="text-xl font-black text-emerald-900 tracking-tight">
-              {formatPrice(listing.price)}
-              {listing.priceUnit && listing.priceUnit !== 'total' && (
-                <span className="text-xs font-normal text-gray-500 ml-1">/{listing.priceUnit}</span>
-              )}
-            </span>
-            <span className="text-xs text-gray-500 flex items-center">
-              <MapPin className="w-3 h-3 text-emerald-600 mr-0.5" />
-              {listing.location.district}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h3 
-            onClick={() => setSelectedListing(listing)}
-            className="font-bold text-gray-800 text-sm line-clamp-2 hover:text-emerald-800 cursor-pointer mb-2"
-          >
-            {listing.titleHi || listing.title}
+          <h3 className="font-semibold text-slate-800 text-base line-clamp-1 group-hover:text-emerald-600 transition-colors">
+            {listing.title}
           </h3>
-
-          {/* Specs pills */}
-          <div className="flex flex-wrap gap-1.5 mb-3">
-            {listing.specs.year && (
-              <span className="bg-gray-100 text-gray-600 text-[10px] px-2 py-0.5 rounded font-medium">
-                {listing.specs.year} मॉडल
-              </span>
-            )}
-            {listing.specs.condition && (
-              <span className="bg-amber-50 text-amber-800 text-[10px] px-2 py-0.5 rounded font-medium">
-                {listing.specs.condition === 'new' ? 'नया' : listing.specs.condition === 'like-new' ? 'बहुत अच्छा' : 'इस्तेमाल किया हुआ'}
-              </span>
-            )}
-            {listing.specs.breed && (
-              <span className="bg-emerald-50 text-emerald-800 text-[10px] px-2 py-0.5 rounded font-medium">
-                नस्ल: {listing.specs.breed}
-              </span>
-            )}
-            {listing.specs.quantity && (
-              <span className="bg-blue-50 text-blue-800 text-[10px] px-2 py-0.5 rounded font-medium">
-                मात्रा: {listing.specs.quantity} {listing.specs.quantityUnit}
-              </span>
-            )}
-          </div>
+          <p className="text-slate-500 text-xs line-clamp-2 mt-1 font-normal">
+            {listing.description}
+          </p>
         </div>
 
-        {/* Footer Actions */}
-        <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
-          {/* AI Valuation button */}
-          <button
-            onClick={() => openAIValuationModal(listing)}
-            className="flex items-center space-x-1 text-[11px] text-amber-700 bg-amber-50 hover:bg-amber-100 px-2 py-1.5 rounded-lg border border-amber-200 transition-colors font-medium"
-            title="AI सही मूल्य जांचें"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            <span className="hidden sm:inline">AI भाव जांचें</span>
-          </button>
-
-          <div className="flex items-center space-x-1.5">
-            {/* Chat button */}
-            <button
-              onClick={() => openChatModal(listing)}
-              className="p-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-lg transition-colors border border-emerald-200"
-              title="चैट करें"
-            >
-              <MessageCircle className="w-4 h-4" />
-            </button>
-
-            {/* Call button */}
-            <a
-              href={`tel:${listing.seller.phone}`}
-              className="bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center space-x-1 shadow-xs transition-colors"
-            >
-              <Phone className="w-3.5 h-3.5" />
-              <span>कॉल करें</span>
-            </a>
+        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <div className="flex items-center gap-1 font-medium text-slate-600 line-clamp-1">
+            <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <span>{listing.location.city}, {listing.location.state}</span>
+          </div>
+          <div className="flex items-center gap-1 text-slate-400 shrink-0">
+            <Calendar className="w-3.5 h-3.5" />
+            <span>{new Date(listing.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</span>
           </div>
         </div>
-
       </div>
     </div>
   );
