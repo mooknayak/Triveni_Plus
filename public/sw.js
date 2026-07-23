@@ -10,7 +10,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache).catch(err => console.log('Cache addAll error:', err));
     })
-  );
+  )
   self.skipWaiting();
 });
 
@@ -18,9 +18,9 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
           }
         })
       );
@@ -51,7 +51,6 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Push notification listener
 self.addEventListener('push', (event) => {
   const data = event.data ? event.data.json() : {};
   const title = data.title || 'Triveni Plus Notification';
@@ -70,6 +69,6 @@ self.addEventListener('push', (event) => {
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow(event.notification.data || '/')
+    clients.openWindow(event.notification.data)
   );
 });
