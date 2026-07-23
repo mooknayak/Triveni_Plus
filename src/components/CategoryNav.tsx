@@ -1,93 +1,75 @@
 import React from 'react';
 import { CATEGORIES } from '../data/categories';
-import { Sparkles, Tractor, Shirt, Car, Smartphone, Building2, Briefcase, Grid } from 'lucide-react';
+import { useApp } from '../context/AppContext';
+import { LayoutGrid, Sparkles } from 'lucide-react';
 
-interface CategoryNavProps {
-  selectedCategory: string;
-  selectedSubcategory: string;
-  onSelectCategory: (categoryId: string) => void;
-  onSelectSubcategory: (subcategoryId: string) => void;
-}
+export const CategoryNav: React.FC = () => {
+  const { 
+    selectedCategory, 
+    setSelectedCategory, 
+    selectedSubcategory, 
+    setSelectedSubcategory 
+  } = useApp();
 
-const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
-  Sparkles,
-  Tractor,
-  Shirt,
-  Car,
-  Smartphone,
-  Building2,
-  Briefcase
-};
-
-export const CategoryNav: React.FC<CategoryNavProps> = ({
-  selectedCategory,
-  selectedSubcategory,
-  onSelectCategory,
-  onSelectSubcategory,
-}) => {
   const activeCategoryObj = CATEGORIES.find(c => c.id === selectedCategory);
 
   return (
-    <div className="bg-white border-b border-slate-200 shadow-2xs sticky top-16 z-30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Main Categories Bar */}
+    <div className="bg-white border-b border-gray-200 shadow-xs sticky top-[73px] z-30">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Primary Categories Scroll List */}
         <div className="flex items-center space-x-2 overflow-x-auto py-3 no-scrollbar scroll-smooth">
-          
-          {/* All Button */}
+          {/* "All Categories" button */}
           <button
             onClick={() => {
-              onSelectCategory('all');
-              onSelectSubcategory('all');
+              setSelectedCategory('all');
+              setSelectedSubcategory('all');
             }}
-            className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer ${
+            className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border shrink-0 ${
               selectedCategory === 'all'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                ? 'bg-emerald-800 text-white border-emerald-800 shadow-md shadow-emerald-800/10'
+                : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-emerald-50 hover:text-emerald-800'
             }`}
           >
-            <Grid className="w-4 h-4" />
-            <span>सभी श्रेणियां</span>
+            <LayoutGrid className="w-4 h-4" />
+            <span>सभी श्रेणियां (All)</span>
           </button>
 
-          {CATEGORIES.map((category) => {
-            const IconComponent = ICON_MAP[category.iconName] || Grid;
-            const isSelected = selectedCategory === category.id;
-
+          {/* Category List */}
+          {CATEGORIES.map((cat) => {
+            const isSelected = selectedCategory === cat.id;
             return (
               <button
-                key={category.id}
+                key={cat.id}
                 onClick={() => {
-                  onSelectCategory(category.id);
-                  onSelectSubcategory('all');
+                  setSelectedCategory(cat.id);
+                  setSelectedSubcategory('all');
                 }}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer ${
+                className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border shrink-0 ${
                   isSelected
-                    ? 'bg-emerald-800 text-white shadow-sm ring-2 ring-emerald-600 ring-offset-1'
-                    : 'bg-slate-50 border border-slate-200 text-slate-800 hover:bg-slate-100 hover:border-slate-300'
+                    ? 'bg-emerald-800 text-white border-emerald-800 shadow-md shadow-emerald-800/10'
+                    : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-emerald-50 hover:text-emerald-800'
                 }`}
               >
-                <IconComponent className={`w-4 h-4 ${isSelected ? 'text-amber-300' : 'text-emerald-700'}`} />
-                <span>{category.nameHi}</span>
+                <span>{cat.nameHi}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Subcategories Bar (When a Category is Selected) */}
-        {activeCategoryObj && (
-          <div className="py-2.5 border-t border-slate-100 flex items-center space-x-2 overflow-x-auto no-scrollbar">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-1">उप-श्रेणी:</span>
+        {/* Subcategories bar (if category selected) */}
+        {activeCategoryObj && activeCategoryObj.subcategories.length > 0 && (
+          <div className="py-2.5 border-t border-gray-100 flex items-center space-x-2 overflow-x-auto no-scrollbar">
+            <span className="text-xs font-medium text-gray-400 shrink-0 mr-1">उप-श्रेणी:</span>
             
             <button
-              onClick={() => onSelectSubcategory('all')}
-              className={`px-2.5 py-1 rounded-full text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
+              onClick={() => setSelectedSubcategory('all')}
+              className={`px-3 py-1 rounded-lg text-xs font-medium shrink-0 transition-colors ${
                 selectedSubcategory === 'all'
-                  ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-amber-100 text-amber-900 font-bold border border-amber-300'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
-              सब देखें
+              सब देखें (All {activeCategoryObj.nameHi})
             </button>
 
             {activeCategoryObj.subcategories.map((sub) => {
@@ -95,11 +77,11 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
               return (
                 <button
                   key={sub.id}
-                  onClick={() => onSelectSubcategory(sub.id)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium shrink-0 transition-colors cursor-pointer ${
+                  onClick={() => setSelectedSubcategory(sub.id)}
+                  className={`px-3 py-1 rounded-lg text-xs font-medium shrink-0 transition-colors ${
                     isSubSelected
-                      ? 'bg-emerald-600 text-white shadow-2xs'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      ? 'bg-amber-100 text-amber-900 font-bold border border-amber-300'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   {sub.nameHi}
@@ -108,7 +90,6 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
             })}
           </div>
         )}
-
       </div>
     </div>
   );
