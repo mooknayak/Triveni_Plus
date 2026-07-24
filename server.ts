@@ -4,31 +4,33 @@ import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import { connectToMongoDB } from "./src/lib/mongodb.js";
 
-async function startServer() {
-  const app = express();
-  const PORT = 3000;
+const app = express();
+const PORT = 3000;
 
-  app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "10mb" }));
 
-  const getGenAI = () => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      throw new Error("GEMINI_API_KEY environment variable is missing");
-    }
-    return new GoogleGenAI({
-      apiKey,
-      httpOptions: {
-        headers: {
-          "User-Agent": "aistudio-build",
-        },
+// Initialize Gemini API client safely
+const getGenAI = () => {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("GEMINI_API_KEY environment variable is missing");
+  }
+  return new GoogleGenAI({
+    apiKey,
+    httpOptions: {
+      headers: {
+        "User-Agent": "aistudio-build",
       },
-    });
-  };
-
-  app.get("/api/health", (req, res) => {
-    res.json({ status: "ok", appName: "Triveni Plus Marketplace" });
+    },
   });
+};
 
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", appName: "Triveni Plus Marketplace" });
+});
+
+  // MongoDB REST API endpoints for Products & Listings
   app.get("/api/listings", async (req, res) => {
     try {
       const { db } = await connectToMongoDB();
@@ -60,6 +62,7 @@ async function startServer() {
     }
   });
 
+  // Live Mandi Bhav Endpoint
   app.get("/api/mandi-bhav", (req, res) => {
     res.json({
       success: true,
@@ -77,6 +80,7 @@ async function startServer() {
     });
   });
 
+  // AI Description Helper Endpoint
   app.post("/api/ai-description", async (req, res) => {
     try {
       const { title, category, condition, details, language } = req.body;
@@ -119,6 +123,7 @@ Requirements:
     }
   });
 
+  // AI Price Valuation Endpoint
   app.post("/api/ai-price-estimate", async (req, res) => {
     try {
       const { title, category, condition, originalPrice, ageYears, details } = req.body;
@@ -162,13 +167,15 @@ Requirements:
     }
   });
 
-  if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
+  // Vite Middleware for Development
+  if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
+    createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
+    }).then((vite) => {
+      app.use(vite.middlewares);
     });
-    app.use(vite.middlewares);
-  } else {
+  } else if (process.env.NODE_ENV === "production" && !process.env.VERCEL) {
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
@@ -176,9 +183,10 @@ Requirements:
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://0.0.0.0:${PORT}`);
-  });
-}
+  if (!process.env.VERCEL) {
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server running on http://0.0.0.0:${PORT}`);
+    });
+  }
 
-startServer();
+export default app;
